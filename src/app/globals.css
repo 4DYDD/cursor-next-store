@@ -1,26 +1,357 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --max-width: 1100px;
+  --border-radius: 12px;
+  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
+    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
+    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+
+  --primary-glow: conic-gradient(
+    from 180deg at 50% 50%,
+    #16abff33 0deg,
+    #0885ff33 55deg,
+    #54d6ff33 120deg,
+    #0071ff33 160deg,
+    transparent 360deg
+  );
+  --secondary-glow: radial-gradient(
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0)
+  );
+
+  --tile-start-rgb: 239, 245, 249;
+  --tile-end-rgb: 228, 232, 233;
+  --tile-border: conic-gradient(
+    #00000080,
+    #00000040,
+    #00000030,
+    #00000020,
+    #00000010,
+    #00000010,
+    #00000080
+  );
+
+  --callout-rgb: 238, 240, 241;
+  --callout-border-rgb: 172, 175, 176;
+  --card-rgb: 180, 185, 188;
+  --card-border-rgb: 131, 134, 135;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --color-primary-50: #f6f6f6;
+  --color-primary-100: #f3f4f6;
+  --color-primary-200: #e5e7eb;
+  --color-primary-300: #d1d5db;
+  --color-primary-400: #9ca3af;
+  --color-primary-500: #6c7280;
+  --color-primary-600: #4b5563;
+  --color-primary-700: #374151;
+  --color-primary-800: #1a202c;
+  --color-primary-900: #141922;
+
+  --color-primary-variant-50: #ddd8d8;
+  --color-primary-variant-100: #dad3d3;
+  --color-primary-variant-200: #d6d2d2;
+  --color-primary-variant-300: #d1d1d1;
+  --color-primary-variant-400: #c6c2c2;
+  --color-primary-variant-500: #bcb8b8;
+  --color-primary-variant-600: #b3b0b0;
+  --color-primary-variant-700: #a8a5a5;
+  --color-primary-variant-800: #9e9b9b;
+  --color-primary-variant-900: #8c8a8a;
+
+  --color-secondary-50: #f6f6f6;
+  --color-secondary-100: #f9fafb;
+  --color-secondary-200: #e2e8f0;
+  --color-secondary-300: #cbd5e1;
+  --color-secondary-400: #a0aec0;
+  --color-secondary-500: #718096;
+  --color-secondary-600: #4c5157;
+  --color-secondary-700: #343a40;
+  --color-secondary-800: #212529;
+  --color-secondary-900: #16181d;
+
+  --color-dark-primary-50: #f6f6f6;
+  --color-dark-primary-100: #f3f4f6;
+  --color-dark-primary-200: #e5e7eb;
+  --color-dark-primary-300: #d1d5db;
+  --color-dark-primary-400: #9ca3af;
+  --color-dark-primary-500: #6c7280;
+  --color-dark-primary-600: #4b5563;
+  --color-dark-primary-700: #374151;
+  --color-dark-primary-800: #1a202c;
+  --color-dark-primary-900: #141922;
+
+  --color-dark-primary-variant-50: #ddd8d8;
+  --color-dark-primary-variant-100: #dad3d3;
+  --color-dark-primary-variant-200: #d6d2d2;
+  --color-dark-primary-variant-300: #d1d1d1;
+  --color-dark-primary-variant-400: #c6c2c2;
+  --color-dark-primary-variant-500: #bcb8b8;
+  --color-dark-primary-variant-600: #b3b0b0;
+  --color-dark-primary-variant-700: #a8a5a5;
+  --color-dark-primary-variant-800: #9e9b9b;
+  --color-dark-primary-variant-900: #8c8a8a;
+
+  --color-dark-secondary-50: #f6f6f6;
+  --color-dark-secondary-100: #f9fafb;
+  --color-dark-secondary-200: #e2e8f0;
+  --color-dark-secondary-300: #cbd5e1;
+  --color-dark-secondary-400: #a0aec0;
+  --color-dark-secondary-500: #718096;
+  --color-dark-secondary-600: #4c5157;
+  --color-dark-secondary-700: #343a40;
+  --color-dark-secondary-800: #212529;
+  --color-dark-secondary-900: #16181d;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.flexc {
+  @apply flex items-center justify-center;
+}
+.flexcc {
+  @apply flex flex-col items-center justify-center;
+}
+.transcenter {
+  @apply absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2;
+}
+.transcenter-r {
+  @apply absolute -translate-x-1/2 -translate-y-1/2 right-1/2 top-1/2;
+}
+.transall {
+  @apply transition-all duration-100 ease-in-out;
+}
+.clicked {
+  @apply cursor-pointer active:scale-90;
+}
+
+@keyframes pingku {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+.animate-pingku {
+  animation: pingku 0.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes pulseku {
+  50% {
+    opacity: 0.5;
+  }
+}
+.animate-pulseku {
+  animation: pulseku 0.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes bounceku {
+  0%,
+  100% {
+    transform: translateY(-10%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+.animate-bounceku {
+  animation: bounceku 0.5s infinite;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.fade-out {
+  animation: fadeOut 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.curve-down {
+  animation-name: curve-down;
+  animation-duration: 900ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes curve-down {
+  0% {
+    transform: scale(1, 1);
+    top: 50%;
+  }
+  5% {
+    transform: scale(1, 1);
+    top: 60%;
+  }
+  50% {
+    transform: scale(1, 1);
+    top: 70%;
+  }
+  100% {
+    transform: scale(1, 1);
+    top: 50%;
+  }
+}
+
+.animate-squish {
+  will-change: transform, opacity;
+  animation-name: animate-squish;
+  animation-duration: 100ms;
+  animation-fill-mode: both;
+}
+.animate-squish-barbar {
+  will-change: transform, opacity;
+  animation-name: animate-squish-barbar;
+  animation-duration: 150ms;
+  animation-fill-mode: both;
+}
+.animate-squish-barbar-reverse {
+  will-change: transform;
+  animation-name: animate-squish-barbar;
+  animation-duration: 150ms;
+  animation-fill-mode: forwards;
+  animation-direction: reverse;
+}
+.animate-squish-kalem {
+  will-change: transform;
+  animation-name: animate-squish-kalem;
+  animation-duration: 150ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes animate-squish {
+  /* === BIASA AJA === */
+  0% {
+    transform: scale(0.9, 0.95);
+    opacity: 0;
+  }
+  25% {
+    transform: scale(1.15, 1);
+  }
+  75% {
+    transform: scale(1, 1.15);
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+
+@keyframes animate-squish-barbar {
+  /* === AGAK BARBAR === */
+  0% {
+    transform: scale(0.9, 0.95) skew(0deg, 0deg);
+    animation-timing-function: ease-out;
+    opacity: 0;
+  }
+  25% {
+    transform: scale(1.15, 1) skew(-5deg, 0deg);
+    animation-timing-function: ease-in-out;
+  }
+  50% {
+    transform: scale(1.15, 1) skew(5deg, 0deg);
+    animation-timing-function: ease-in-out;
+  }
+  75% {
+    transform: scale(1, 1.15) skew(0deg, -5deg);
+    animation-timing-function: ease-in-out;
+  }
+  90% {
+    transform: scale(1.05, 1.05) skew(0deg, 0deg);
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: scale(1, 1) skew(0deg, 0deg);
+    animation-timing-function: ease-out;
+    opacity: 1;
+  }
+}
+
+@keyframes animate-squish-kalem {
+  /* === AGAK KALEM === */
+  0% {
+    transform: scale(0.9, 0.95) skew(0deg, 0deg);
+    animation-timing-function: ease-out;
+  }
+  25% {
+    transform: scale(1.15, 1) skew(-5deg, 0deg);
+    animation-timing-function: ease-in-out;
+  }
+  75% {
+    transform: scale(1, 1.15) skew(0deg, -5deg);
+    animation-timing-function: ease-in-out;
+  }
+  90% {
+    transform: scale(1.05, 1.05) skew(0deg, 0deg);
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: scale(1, 1) skew(0deg, 0deg);
+    animation-timing-function: ease-out;
+  }
+}
+
+@keyframes fast-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-fast-spin {
+  animation: fast-spin 0.8s linear infinite;
+}
+
+/* Custom Scrollbar */
+.scrollbar-custom {
+  scrollbar-width: auto;
+  scrollbar-color: #5c6166 #e4e2e2;
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background-color: #5c6166;
+  border-radius: 14px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  background-color: #e4e2e2;
+  border-radius: 14px;
 }
