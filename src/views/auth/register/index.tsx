@@ -2,10 +2,10 @@ import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { handleNumericInput } from "@/utils/handleNumericInput";
-import InputField from "@/views/auth/register/InputField";
+import InputField from "@/components/Elements/InputField";
 import { Inter } from "next/font/google";
 import { CSSProperties } from "react";
-import { RegisterViewProps } from "@/interfaces/RegisterViewProps";
+import { RegisterViewProps } from "@/interfaces/register/RegisterViewProps";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -84,7 +84,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({
   error,
   errorPhone,
   setErrorPhone,
-  handleSubmit,
+  handleRegister,
 }) => {
   return (
     <>
@@ -108,7 +108,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({
           {/*  */}
           {/*  */}
           {/* ===== REGISTER FORM ===== */}
-          <form onSubmit={handleSubmit} className={inter.className}>
+          <form onSubmit={handleRegister} className={inter.className}>
             {/*  */}
             {/*  */}
             {/*  */}

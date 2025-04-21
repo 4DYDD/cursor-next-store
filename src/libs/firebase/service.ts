@@ -9,8 +9,8 @@ import {
   addDoc,
 } from "firebase/firestore";
 import app from "./init";
-import { hash } from "bcrypt";
-import { UserData } from "@/types/UserData";
+import { compare, hash } from "bcrypt";
+import { UserData } from "@/interfaces/UserData";
 
 const firestore = getFirestore(app);
 
@@ -97,4 +97,48 @@ export async function signUp(userData: UserData): Promise<{
 
     return theData;
   }
+}
+
+export async function signIn(
+  email: string,
+  password: string
+): Promise<UserData | null> {
+  //
+  //
+  //
+  // JIKA EMAIL DAN PASSWORD KOSONG MAKA KEMBALIKAN NULL
+  if (!email) return null;
+  if (!password) return null;
+
+  //
+  //
+  //
+  // CEK DATA DI DATABASE DENGAN EMAIL YANG DITENTUKAN
+  const q = query(collection(firestore, "users"), where("email", "==", email));
+  const snapshot = await getDocs(q);
+  const data: UserData | null =
+    snapshot.docs.length > 0
+      ? snapshot.docs.map((doc) => ({
+          id: doc.id,
+          email: doc.data().email,
+          fullname: doc.data().fullname,
+          phone: doc.data().phone,
+          password: doc.data().password,
+          ...doc.data(),
+        }))[0]
+      : null;
+
+  //
+  //
+  //
+  // JIKA DATA TIDAK DITEMUKAN MAKA KEMBALIKAN NULL
+  if (!data) return null;
+
+  //
+  //
+  //
+  // KONFIRMASI PASSWORD, JIKA TIDAK SAMA MAKA KEMBALIKAN NULL, JIKA SAMA MAKA KEMBALIKAN DATA
+  const passwordConfirm = await compare(password, data.password as string);
+  data.password = undefined;
+  return passwordConfirm ? data : null;
 }

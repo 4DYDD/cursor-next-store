@@ -1,6 +1,28 @@
+"use client";
+
+import { signIn, signOut, useSession } from "next-auth/react";
+
 export default function Home() {
+  const { data, status } = useSession();
+
   return (
     <main className="min-h-screen bg-gray-100">
+      <div className="p-10">
+        <button
+          className="bg-red-500 p-5 rounded-lg shadow cursor-pointer"
+          onClick={() => {
+            if (status === "loading") return;
+            if (data) {
+              signOut();
+            } else {
+              signIn();
+            }
+          }}
+        >
+          {status === "loading" ? "Loading..." : data ? "Log Out!" : "Log In!"}
+        </button>
+      </div>
+
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-8">
           Selamat Datang di Tokoku

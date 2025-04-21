@@ -12,7 +12,7 @@ const RegisterPage = () => {
   const [errorPhone, setErrorPhone] = useState("");
   const { push } = useRouter();
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
     if (isLoading) return;
     event.preventDefault();
 
@@ -50,7 +50,7 @@ const RegisterPage = () => {
         error={error}
         errorPhone={errorPhone}
         setErrorPhone={setErrorPhone}
-        handleSubmit={handleSubmit}
+        handleRegister={handleRegister}
       />
     </>
   );

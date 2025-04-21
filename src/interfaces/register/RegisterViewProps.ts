@@ -5,5 +5,5 @@ export interface RegisterViewProps {
   error: string;
   errorPhone: string;
   setErrorPhone: React.Dispatch<React.SetStateAction<string>>;
-  handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  handleRegister: (event: FormEvent<HTMLFormElement>) => void;
 }

@@ -1,6 +1,9 @@
-import type { Metadata, Viewport } from "next";
+"use client";
+
+// import type { Metadata, Viewport } from "next";
 import { Quicksand } from "next/font/google";
 import "./globals.css";
+import { SessionProvider } from "next-auth/react";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -8,24 +11,24 @@ const quicksand = Quicksand({
   variable: "--font-quicksand",
 });
 
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-};
+// export const viewport: Viewport = {
+//   width: "device-width",
+//   initialScale: 1,
+// };
 
-export const metadata: Metadata = {
-  title: "Cursor Tokoku",
-  description:
-    "Toko online kekinian pake Next.js, belanja cepet dan aman banget!",
-  keywords: ["next.js", "react", "typescript"],
-  authors: [{ name: "Somwan" }],
-  openGraph: {
-    title: "Cursor Tokoku",
-    description:
-      "Toko online kekinian pake Next.js, belanja cepet dan aman banget!",
-    type: "website",
-  },
-};
+// export const metadata: Metadata = {
+//   title: "Cursor Tokoku",
+//   description:
+//     "Toko online kekinian pake Next.js, belanja cepet dan aman banget!",
+//   keywords: ["next.js", "react", "typescript"],
+//   authors: [{ name: "Somwan" }],
+//   openGraph: {
+//     title: "Cursor Tokoku",
+//     description:
+//       "Toko online kekinian pake Next.js, belanja cepet dan aman banget!",
+//     type: "website",
+//   },
+// };
 
 export default function RootLayout({
   children,
@@ -35,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${quicksand.variable} ${quicksand.className}`}>
-        {children}
+        <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
   );
