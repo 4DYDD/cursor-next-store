@@ -8,6 +8,10 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gray-100">
       <div className="p-10">
+        {/*  */}
+        {/*  */}
+        {/*  */}
+        {/* ===== AWASI TOMBOL, BELUM DI ATUR ANTI SPAM ===== */}
         <button
           className="bg-red-500 p-5 rounded-lg shadow cursor-pointer"
           onClick={() => {
@@ -21,6 +25,10 @@ export default function Home() {
         >
           {status === "loading" ? "Loading..." : data ? "Log Out!" : "Log In!"}
         </button>
+        {/* ===== AWASI TOMBOL, BELUM DI ATUR ANTI SPAM ===== */}
+        {/*  */}
+        {/*  */}
+        {/*  */}
       </div>
 
       <div className="container mx-auto px-4 py-8">

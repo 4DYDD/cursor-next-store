@@ -46,22 +46,23 @@ const LoginPage = ({ searchParams }: any) => {
   const handleSignInWithGoogle = async (
     event: MouseEvent<HTMLButtonElement>
   ) => {
-    // if (isLoading) return;
+    if (isLoading) return;
 
     event.preventDefault();
 
-    // setError("");
-    // setIsLoading(true);
+    setError("");
+    setIsLoading(true);
 
-    // try {
-    //   await signIn("google", {
-    //     redirect: false,
-    //     callbackUrl,
-    //   });
-    // } catch (error: any) {
-    //   setError("Failed to sign in with Google");
-    //   setIsLoading(false);
-    // }
+    try {
+      await signIn("google", {
+        redirect: false,
+        callbackUrl,
+      });
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error: any) {
+      setError("Failed to sign in with Google");
+      setIsLoading(false);
+    }
   };
 
   return (

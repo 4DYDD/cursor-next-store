@@ -1,7 +1,8 @@
 import { UserData } from "@/interfaces/UserData";
-import { signIn } from "@/libs/firebase/service";
+import { signIn, signInWithGoogle } from "@/libs/firebase/service";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import { JwtProps, myJWT } from "@/interfaces/jwtProps";
 import { mySession, sessionProps } from "@/interfaces/sessionProps";
 
@@ -26,8 +27,12 @@ const authOptions: NextAuthOptions = {
 
         const user = await signIn(email, password);
 
-        return user || null;
+        return user && user.type === "credential" ? user : null;
       },
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_OAUTH_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET || "",
     }),
   ],
   callbacks: {
@@ -39,7 +44,6 @@ const authOptions: NextAuthOptions = {
           if (user) {
             const theUser = user as UserData;
 
-            myToken.id = theUser.id;
             myToken.email = theUser.email;
             myToken.fullname = theUser.fullname;
             myToken.phone = theUser.phone;
@@ -49,13 +53,30 @@ const authOptions: NextAuthOptions = {
           }
           break;
 
-        // case "google":
-        //   if (user) {
-        //     myToken.id = user.id;
-        //     myToken.email = user.email;
-        //     myToken.image = user.image;
-        //   }
-        //   break;
+        case "google":
+          if (user) {
+            const result: { data: UserData | null } = { data: null };
+
+            await signInWithGoogle(
+              {
+                id: user.id as string,
+                email: user.email as string,
+                name: user.name as string,
+                image: user.image as string,
+              },
+              (data: UserData | null) => {
+                result.data = data;
+              }
+            );
+
+            myToken.email = result.data?.email || myToken.email;
+            myToken.fullname = result.data?.fullname || myToken.fullname;
+            myToken.phone = result.data?.phone || myToken.phone;
+            myToken.image = result.data?.image || myToken.image;
+            myToken.role = result.data?.role || myToken.role;
+            myToken.type = result.data?.type || myToken.type;
+          }
+          break;
 
         default:
           break;
@@ -75,7 +96,10 @@ const authOptions: NextAuthOptions = {
 
       if ("email" in myToken) theSession.user.email = myToken.email;
       if ("fullname" in myToken) theSession.user.fullname = myToken.fullname;
-      if ("phone" in myToken) theSession.user.phone = myToken.phone;
+
+      if ("phone" in myToken && myToken.phone !== "")
+        theSession.user.phone = myToken.phone;
+
       if ("image" in myToken) theSession.user.image = myToken.image;
       if ("role" in myToken) theSession.user.role = myToken.role;
       if ("type" in myToken) theSession.user.type = myToken.type;
