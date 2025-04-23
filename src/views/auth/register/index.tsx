@@ -5,7 +5,7 @@ import { handleNumericInput } from "@/utils/handleNumericInput";
 import InputField from "@/components/Elements/InputField";
 import { Inter } from "next/font/google";
 import { CSSProperties } from "react";
-import { RegisterViewProps } from "@/interfaces/register/RegisterViewProps";
+import { RegisterViewProps } from "@/interfaces/auth/RegisterViewProps";
 
 const inter = Inter({ subsets: ["latin"] });
 

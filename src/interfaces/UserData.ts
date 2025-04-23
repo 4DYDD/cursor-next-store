@@ -8,6 +8,8 @@ export interface UserData extends User {
   image?: string;
   role?: string;
   type?: string;
+  created_at?: Date;
+  updated_at?: Date;
 }
 export interface OptionalUserData extends User {
   email?: string;
@@ -17,4 +19,6 @@ export interface OptionalUserData extends User {
   image?: string;
   role?: string;
   type?: string;
+  created_at?: Date;
+  updated_at?: Date;
 }

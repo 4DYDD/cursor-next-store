@@ -6,7 +6,7 @@ export const handleNumericInput = (
   const numericValue = value.replace(/[^0-9]/g, ""); // Hapus semua karakter non-angka
 
   if (value !== numericValue) {
-    callback("Input hanya boleh berupa angka!"); // Panggil callback jika ada karakter non-angka
+    callback("Input must be numeric only!"); // Panggil callback jika ada karakter non-angka
   } else {
     callback(""); // Kosongkan pesan kesalahan jika input valid
   }

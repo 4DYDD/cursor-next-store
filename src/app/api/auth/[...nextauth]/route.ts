@@ -1,5 +1,5 @@
 import { UserData } from "@/interfaces/UserData";
-import { signIn, signInWithGoogle } from "@/libs/firebase/service";
+import { signIn, signInWithGoogle } from "@/services/auth";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
@@ -68,6 +68,8 @@ const authOptions: NextAuthOptions = {
                 result.data = data;
               }
             );
+
+            myToken.name = undefined;
 
             myToken.email = result.data?.email || myToken.email;
             myToken.fullname = result.data?.fullname || myToken.fullname;
