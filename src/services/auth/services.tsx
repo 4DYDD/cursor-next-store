@@ -68,9 +68,42 @@ export async function signUp(userData: UserData): Promise<signUpResponse> {
   //
   // MEMERIKSA APAKAH EMAIL MEMILIKI FORMAT YANG VALID
   // FORMAT EMAIL YANG VALID ADALAH STRING YANG MENGANDUNG '@', PUNYA USERNAME DAN DOMAIN YANG BENAR
+
+  const validDomains = [
+    "gmail.com",
+    "yahoo.com",
+    "outlook.com",
+    "hotmail.com",
+    "aol.com",
+    "icloud.com",
+    "protonmail.com",
+    "zoho.com",
+    "mail.com",
+    "gmx.com",
+    "yandex.com",
+    "fastmail.com",
+    "hushmail.com",
+    "tutanota.com",
+    "live.com",
+    "me.com",
+    "msn.com",
+    "qq.com",
+    "163.com",
+    "126.com",
+    "sina.com",
+    "aliyun.com",
+    "office365.com",
+    "googlemail.com",
+    "company.com", // Example for business domains
+    "enterprise.com", // Example for business domains
+    "customdomain.com", // Example for custom domains
+  ]; // Add more valid domains as needed
+  const emailParts = userData.email.split("@");
   if (
     typeof userData.email !== "string" ||
-    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userData.email)
+    emailParts.length !== 2 ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userData.email) ||
+    !validDomains.includes(emailParts[1])
   ) {
     return {
       statusCode: 400,
@@ -146,7 +179,42 @@ export async function signIn(
   //
   // MEMERIKSA APAKAH EMAIL MEMILIKI FORMAT YANG VALID
   // FORMAT EMAIL YANG VALID ADALAH STRING YANG MENGANDUNG '@', PUNYA USERNAME DAN DOMAIN YANG BENAR
-  if (typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  const validDomains = [
+    "gmail.com",
+    "yahoo.com",
+    "outlook.com",
+    "hotmail.com",
+    "aol.com",
+    "icloud.com",
+    "protonmail.com",
+    "zoho.com",
+    "mail.com",
+    "gmx.com",
+    "yandex.com",
+    "fastmail.com",
+    "hushmail.com",
+    "tutanota.com",
+    "live.com",
+    "me.com",
+    "msn.com",
+    "qq.com",
+    "163.com",
+    "126.com",
+    "sina.com",
+    "aliyun.com",
+    "office365.com",
+    "googlemail.com",
+    "company.com", // Example for business domains
+    "enterprise.com", // Example for business domains
+    "customdomain.com", // Example for custom domains
+  ]; // Add more valid domains as needed
+  const emailParts = email.split("@");
+  if (
+    typeof email !== "string" ||
+    emailParts.length !== 2 ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
+    !validDomains.includes(emailParts[1])
+  ) {
     return null;
   }
 
