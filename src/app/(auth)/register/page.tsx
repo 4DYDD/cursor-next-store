@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import RegisterView from "@/views/auth/register";
 import { RegisterForm } from "@/interfaces/RegisterForm";
+import authServices from "@/services/auth";
 
 const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,14 +29,19 @@ const RegisterPage = () => {
     setIsLoading(true);
     setError("");
 
-    const res = await fetch("/api/auth/register", {
-      method: "POST",
-      body: JSON.stringify(data),
-    }).then((response) => response.json());
+    const { response } = await authServices
+      .registerAccount(data)
+      .then((result) => {
+        console.log(result);
+        return { response: result };
+      })
+      .catch((error) => {
+        return error;
+      });
 
     // JIKA ERROR
-    if (res.status === false) {
-      setError(res.message);
+    if (response.status !== 201) {
+      setError(response.statusText);
       setIsLoading(false);
     } else {
       form.reset();

@@ -1,5 +1,5 @@
 import { UserData } from "@/interfaces/UserData";
-import { signIn, signInWithGoogle } from "@/services/auth";
+import { signIn, signInWithGoogle } from "@/services/auth/services";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
