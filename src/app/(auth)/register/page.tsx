@@ -39,8 +39,6 @@ const RegisterPage = () => {
         return error;
       });
 
-    console.log(response);
-
     // JIKA ERROR
     if (response.status !== 201) {
       setError(response.data.message);
