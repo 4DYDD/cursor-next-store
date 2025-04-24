@@ -43,7 +43,7 @@ const RegisterPage = () => {
 
     // JIKA ERROR
     if (response.status !== 201) {
-      setError(response.statusText);
+      setError(response.data.message);
       setIsLoading(false);
     } else {
       form.reset();

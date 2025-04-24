@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
   const res = await signUp(req);
 
   return NextResponse.json(
-    { user: res.data },
-    { status: res.statusCode as number, statusText: res.message as string }
+    { user: res.data, message: res.message as string },
+    { status: res.statusCode as number }
   );
 }
