@@ -73,9 +73,9 @@ const Sidebar = () => {
   }, [isCollapsed]);
 
   return (
-    <div className="flex">
+    <div className="flex z-[10]">
       <div
-        className={`bg-white text-black shadow-gray-400 shadow-md h-screen overflow-hidden ${
+        className={`bg-white text-black shadow h-screen overflow-hidden ${
           isCollapsed ? "w-[90px]" : "w-[256px]"
         } transition-all duration-300`}
       >
