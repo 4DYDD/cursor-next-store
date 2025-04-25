@@ -4,6 +4,7 @@
 import { Quicksand } from "next/font/google";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
