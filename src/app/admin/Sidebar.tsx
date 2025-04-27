@@ -7,11 +7,13 @@ const SidebarLink = ({
   href,
   iconClass,
   children,
+  isHideText,
   isCollapsed,
 }: {
   href: string;
   iconClass: string;
   children: React.ReactNode;
+  isHideText: boolean;
   isCollapsed: boolean;
 }) => {
   const pathname = usePathname();
@@ -20,21 +22,22 @@ const SidebarLink = ({
     <li className={`border-l-black border-l-2 pl-2 mb-4`}>
       <Link
         href={href}
-        className={`px-3.5 py-2 w-full ${
-          isCollapsed ? "flexc" : "flexc !justify-start"
+        className={`px-3.5 py-2 w-full gap-3 transall ${
+          isHideText ? "flexc" : "flexc"
         } rounded font-semibold flexc h-10 ${
           pathname === href
             ? "bg-black text-white"
             : "bg-white text-black hover:bg-black hover:text-white transall clicked"
         }`}
       >
-        <i
-          className={`transall ${iconClass} ${isCollapsed ? "mr-0" : "mr-3"}`}
-        ></i>
+        <span className={`transall !w-3 !h-8 flexc`}>
+          <i className={`transall block ${iconClass}`} />
+        </span>
+
         <span
-          className={`transition-opacity duration-100 ${
-            isCollapsed ? "opacity-0" : "opacity-100"
-          }`}
+          className={`transall p-0 ${
+            isCollapsed ? "opacity-0 w-0" : "opacity-100 w-full"
+          } ${isHideText && "hidden"}`}
         >
           {children}
         </span>
@@ -46,16 +49,35 @@ const SidebarLink = ({
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [hideText, setHideText] = useState(false);
+  let timeoutId: NodeJS.Timeout | null = null;
 
   const handleCollapse = () => {
+    if (timeoutId) return; // Prevent triggering if animation is still ongoing
+
     if (!isCollapsed) {
-      setIsCollapsed(true);
-      setTimeout(() => setHideText(true), 100); // Delay hiding text until animation ends
+      timeoutId = setTimeout(() => {
+        setTimeout(() => {
+          setHideText(true);
+        }, 50);
+        setIsCollapsed(true);
+        timeoutId = null; // Reset timeoutId after animation ends
+      }, 100); // Delay hiding text until animation ends
     } else {
-      setHideText(false);
-      setIsCollapsed(false);
+      timeoutId = setTimeout(() => {
+        setTimeout(() => {
+          setIsCollapsed(false);
+        }, 50);
+        setHideText(false);
+        timeoutId = null; // Reset timeoutId after animation ends
+      }, 100); // Delay showing text until animation ends
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [timeoutId]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -75,7 +97,7 @@ const Sidebar = () => {
   return (
     <div className="flex z-[10]">
       <div
-        className={`bg-white text-black shadow h-screen overflow-hidden ${
+        className={`text-black shadow h-screen overflow-hidden ${
           isCollapsed ? "w-[90px]" : "w-[256px]"
         } transition-all duration-300`}
       >
@@ -102,12 +124,18 @@ const Sidebar = () => {
             ></i>
           </button>
         </div>
+
         <ul className="p-4">
           {[
             {
               href: "/admin",
               iconClass: "fa-solid fa-house",
               label: "Home",
+            },
+            {
+              href: "/admin/users",
+              iconClass: "fa-solid fa-users",
+              label: "Users",
             },
             {
               href: "/admin/products",
@@ -124,17 +152,13 @@ const Sidebar = () => {
               iconClass: "fa-solid fa-gear",
               label: "Settings",
             },
-            {
-              href: "/admin/users",
-              iconClass: "fa-solid fa-users",
-              label: "Users",
-            },
           ].map(({ href, iconClass, label }) => (
             <SidebarLink
               key={href}
               href={href}
               iconClass={iconClass}
-              isCollapsed={hideText}
+              isHideText={hideText}
+              isCollapsed={isCollapsed}
             >
               {!hideText && label}
             </SidebarLink>
