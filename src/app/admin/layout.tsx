@@ -18,7 +18,7 @@ export default function AdminLayout({
         <Sidebar />
         <div className="flex-1 flexcc !justify-start h-[100vh]">
           <Navbar />
-          <main className="p-5 flexcc">{children}</main>
+          <main className="p-5 flexcc w-full">{children}</main>
         </div>
       </div>
     </>
