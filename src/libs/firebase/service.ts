@@ -6,6 +6,8 @@ import {
   getDoc,
   query,
   where,
+  updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import app from "./init";
 import { UserData } from "@/interfaces/UserData";
@@ -52,4 +54,35 @@ export async function retrieveDataByField(
       : null;
 
   return data;
+}
+
+export async function updateData(
+  collectionName: string,
+  id: string,
+  data: any,
+  callback: ({ status }: { status: boolean }) => void
+) {
+  const docRef = doc(firestore, collectionName, id);
+  await updateDoc(docRef, data)
+    .then(() => {
+      callback({ status: true });
+    })
+    .catch(() => {
+      callback({ status: false });
+    });
+}
+
+export async function deleteData(
+  collectionName: string,
+  id: string,
+  callback: ({ status }: { status: boolean }) => void
+) {
+  const docRef = doc(firestore, collectionName, id);
+  await deleteDoc(docRef)
+    .then(() => {
+      callback({ status: true });
+    })
+    .catch(() => {
+      callback({ status: false });
+    });
 }

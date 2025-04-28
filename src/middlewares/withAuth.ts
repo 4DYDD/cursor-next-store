@@ -6,17 +6,15 @@ import {
   NextResponse,
 } from "next/server";
 
-const onlyAdmin = ["/admin"];
-const authPage = ["/login", "/register"];
+const onlyAdmin = ["admin"];
+const authPage = ["login", "register"];
 
 export default function WithAuth(
   middleware: NextMiddleware,
   requireAuth: Array<string> = []
 ) {
   return async (req: NextRequest, next: NextFetchEvent) => {
-    const pathname = req.nextUrl.pathname;
-
-    console.log(`\n\n ${pathname} \n\n`);
+    const pathname = req.nextUrl.pathname.split("/")[1];
 
     if (requireAuth.includes(pathname)) {
       const token = await getToken({
