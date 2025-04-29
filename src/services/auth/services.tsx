@@ -137,7 +137,7 @@ export async function signUp(userData: UserData): Promise<signUpResponse> {
   // JIKA TIDAK ADA USER DENGAN EMAIL YANG SAMA MAKA KEMBALIKAN DATA USER BARU
   else {
     userData.password = await hash(userData.password, 10);
-    userData.image = userData.image || "/public/image/genderless-anime.jpeg";
+    userData.image = userData.image || "/image/genderless-anime.jpeg";
     userData.role = "member";
     userData.type = "credential";
     userData.created_at = new Date();

@@ -19,18 +19,18 @@ export async function GET(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   const { id, data } = await request.json();
-  await updateData("users", id, data, ({ status }) => {
+  return await updateData("users", id, data, ({ status }) => {
     if (status === true) {
-      NextResponse.json({
+      return NextResponse.json({
         status: true,
         statusCode: 200,
-        message: "Success",
+        message: "Update Data Success!",
       });
     } else {
-      NextResponse.json({
+      return NextResponse.json({
         status: false,
         statusCode: 400,
-        message: "Failed",
+        message: "Update Data Failed!",
       });
     }
   });
@@ -38,15 +38,16 @@ export async function PUT(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   const { id } = await request.json();
-  await deleteData("users", id, ({ status }) => {
+
+  return await deleteData("users", id, ({ status }) => {
     if (status === true) {
-      NextResponse.json({
+      return NextResponse.json({
         status: true,
         statusCode: 200,
         message: "Success",
       });
     } else {
-      NextResponse.json({
+      return NextResponse.json({
         status: false,
         statusCode: 400,
         message: "Failed",

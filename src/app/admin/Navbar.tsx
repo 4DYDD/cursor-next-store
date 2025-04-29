@@ -15,7 +15,10 @@ const Navbar = () => {
   return (
     <div className="flexc bg-white shadow w-full h-[7vh]">
       <ul className="flexc !justify-end space-x-4 p-3.5 w-full">
-        {/* Uncomment and add logic for user info */}
+        {/*  */}
+        {/*  */}
+        {/*  */}
+        {/* ===== USER INFO ===== */}
         {status === "authenticated" && (
           <li>
             <div className="flex items-center space-x-2">
@@ -23,12 +26,12 @@ const Navbar = () => {
                 <Image
                   width={500}
                   height={500}
-                  src={`${data?.image || "/image/genderless-anime.jpeg"}`}
+                  src={`${data?.user?.image || "/image/genderless-anime.jpeg"}`}
                   alt="User"
                   className="w-full object-cover"
                 />
               </div>
-              <span>Username</span>
+              <span>{data?.user?.fullname || "unknown"}</span>
             </div>
           </li>
         )}

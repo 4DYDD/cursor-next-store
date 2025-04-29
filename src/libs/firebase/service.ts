@@ -63,12 +63,12 @@ export async function updateData(
   callback: ({ status }: { status: boolean }) => void
 ) {
   const docRef = doc(firestore, collectionName, id);
-  await updateDoc(docRef, data)
+  return await updateDoc(docRef, data)
     .then(() => {
-      callback({ status: true });
+      return callback({ status: true });
     })
     .catch(() => {
-      callback({ status: false });
+      return callback({ status: false });
     });
 }
 
@@ -78,11 +78,11 @@ export async function deleteData(
   callback: ({ status }: { status: boolean }) => void
 ) {
   const docRef = doc(firestore, collectionName, id);
-  await deleteDoc(docRef)
+  return await deleteDoc(docRef)
     .then(() => {
-      callback({ status: true });
+      return callback({ status: true });
     })
     .catch(() => {
-      callback({ status: false });
+      return callback({ status: false });
     });
 }
