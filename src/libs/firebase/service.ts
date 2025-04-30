@@ -60,7 +60,7 @@ export async function updateData(
   collectionName: string,
   id: string,
   data: any,
-  callback: ({ status }: { status: boolean }) => void
+  callback: ({ status }: { status: boolean }) => any
 ) {
   const docRef = doc(firestore, collectionName, id);
   return await updateDoc(docRef, data)

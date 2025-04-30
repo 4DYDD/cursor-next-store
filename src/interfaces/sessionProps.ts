@@ -11,6 +11,7 @@ export interface mySession extends Session {
     role?: string;
     type?: string;
   };
+  accessToken: string;
 }
 
 export interface sessionProps {

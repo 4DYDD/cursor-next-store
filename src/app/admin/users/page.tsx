@@ -5,8 +5,11 @@ import usersServices from "@/services/users";
 import React, { FormEvent, useEffect, useState } from "react";
 import Modal from "./Modal/Modal";
 import Table from "./Table/Table";
+import { useSession } from "next-auth/react";
 
 const UsersPage = () => {
+  const session: any = useSession();
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -25,7 +28,6 @@ const UsersPage = () => {
     if (isLoading) return;
 
     event.preventDefault();
-    alert("Fitur Update User sedang dibuat!");
 
     setIsLoading(true);
     setError("");
@@ -37,7 +39,7 @@ const UsersPage = () => {
     };
 
     const res = await usersServices
-      .updateUser(form.userID.value as string, data)
+      .updateUser(form.userID.value as string, data, session.data?.accessToken)
       .then((response) => {
         console.log(response);
         //
@@ -85,7 +87,7 @@ const UsersPage = () => {
     console.log(form.userFullName.value);
 
     const res = await usersServices
-      .deleteUser(form.userId.value as string)
+      .deleteUser(form.userId.value as string, session.data?.accessToken)
       .then((response) => {
         console.log(response);
         //
