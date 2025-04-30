@@ -29,7 +29,7 @@ export async function PUT(request: NextRequest) {
 
   console.log({ token });
 
-  return await new Promise((resolve, reject) => {
+  const result = await new Promise((resolve, reject) => {
     jwt.verify(
       token,
       process.env.NEXTAUTH_SECRET || "",
@@ -69,24 +69,9 @@ export async function PUT(request: NextRequest) {
       }
     );
   })
-    .then((response) => response)
-    .catch((error) => error);
-
-  // return await updateData("users", id, data, ({ status }) => {
-  //   if (status === true) {
-  //     return NextResponse.json({
-  //       status: true,
-  //       statusCode: 200,
-  //       message: "Update Data Success!",
-  //     });
-  //   } else {
-  //     return NextResponse.json({
-  //       status: false,
-  //       statusCode: 400,
-  //       message: "Update Data Failed!",
-  //     });
-  //   }
-  // });
+    .then((response: any) => response)
+    .catch((error: any) => error);
+  return result;
 }
 
 export async function DELETE(request: NextRequest) {
@@ -142,6 +127,6 @@ export async function DELETE(request: NextRequest) {
       }
     );
   })
-    .then((response) => response)
-    .catch((error) => error);
+    .then((response: any) => response)
+    .catch((error: any) => error);
 }
