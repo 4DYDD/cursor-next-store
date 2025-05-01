@@ -11,6 +11,8 @@ const UsersPage = () => {
   const session: any = useSession();
 
   const [isLoading, setIsLoading] = useState(false);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState("");
 
   const [users, setUsers] = useState<Array<UserData>>([]);
@@ -41,7 +43,6 @@ const UsersPage = () => {
     const res = await usersServices
       .updateUser(form.userID.value as string, data, session.data?.accessToken)
       .then((response) => {
-        console.log(response);
         //
         //
         //
@@ -57,11 +58,14 @@ const UsersPage = () => {
             setIsLoading(false);
           });
         }, 2000);
+
+        return response;
       })
       .catch((error) => {
-        console.log(error);
         setIsLoading(false);
         setError("Gagal Mengupdate User!");
+
+        return error;
       })
       .finally(() => {
         //
@@ -83,13 +87,9 @@ const UsersPage = () => {
 
     const form = event.currentTarget;
 
-    console.log(form.userId.value);
-    console.log(form.userFullName.value);
-
     const res = await usersServices
       .deleteUser(form.userId.value as string, session.data?.accessToken)
-      .then((response) => {
-        console.log(response);
+      .then((response: any) => {
         //
         //
         //
@@ -105,11 +105,14 @@ const UsersPage = () => {
             setIsLoading(false);
           });
         }, 2000);
+
+        return response;
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((error: any) => {
         setIsLoading(false);
         setError("Gagal Menghapus User!");
+
+        return error.response;
       })
       .finally(() => {
         //

@@ -110,7 +110,7 @@ const Sidebar = () => {
               !isCollapsed ? "w-full opacity-100" : "w-0 opacity-0"
             }`}
           >
-            <span className="w-[170px] transcenter">Admin Panel</span>
+            <span className="w-[170px] transcenter">Member Panel</span>
           </h2>
           <button
             onClick={() => {
@@ -129,27 +129,22 @@ const Sidebar = () => {
         <ul className="p-4">
           {[
             {
-              href: "/admin",
+              href: "/member",
               iconClass: "fa-solid fa-house",
               label: "Dashboard",
             },
             {
-              href: "/admin/users",
-              iconClass: "fa-solid fa-users",
-              label: "Users",
+              href: "/member/orders",
+              iconClass: "fa-solid fa-cart-shopping",
+              label: "Orders",
             },
             {
-              href: "/admin/products",
-              iconClass: "fa-solid fa-box",
-              label: "Products",
-            },
-            {
-              href: "/admin/profile",
+              href: "/member/profile",
               iconClass: "fa-solid fa-user",
               label: "Profile",
             },
             {
-              href: "/admin/settings",
+              href: "/member/settings",
               iconClass: "fa-solid fa-gear",
               label: "Settings",
             },

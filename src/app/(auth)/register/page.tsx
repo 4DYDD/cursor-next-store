@@ -32,12 +32,13 @@ const RegisterPage = () => {
     const { response } = await authServices
       .registerAccount(data)
       .then((result) => {
-        console.log(result);
         return { response: result };
       })
       .catch((error) => {
         return error;
       });
+
+    console.log(response);
 
     // JIKA ERROR
     if (response.status !== 201) {

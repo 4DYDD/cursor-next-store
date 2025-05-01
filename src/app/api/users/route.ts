@@ -27,8 +27,6 @@ export async function PUT(request: NextRequest) {
   const Authorization = request.headers.get("Authorization");
   const token = Authorization?.split(" ")[1] || "";
 
-  console.log({ token });
-
   const result = await new Promise((resolve, reject) => {
     jwt.verify(
       token,
@@ -79,14 +77,12 @@ export async function DELETE(request: NextRequest) {
   const Authorization = request.headers.get("Authorization");
   const token = Authorization?.split(" ")[1] || "";
 
-  console.log({ token });
-
   return await new Promise((resolve, reject) => {
     jwt.verify(
       token,
       process.env.NEXTAUTH_SECRET || "",
       async (err: any, decoded: any) => {
-        if (decoded && decoded.role === "admin") {
+        if (decoded && decoded.role === "member") {
           await deleteData("users", id, ({ status }) => {
             if (status === true) {
               return resolve(

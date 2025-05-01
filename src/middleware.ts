@@ -5,7 +5,12 @@ export function mainMiddleware() {
   return NextResponse.next();
 }
 
-export default WithAuth(mainMiddleware, ["admin", "login", "register"]);
+export default WithAuth(mainMiddleware, [
+  "admin",
+  "member",
+  "login",
+  "register",
+]);
 
 // export const config = {
 //   matcher: [

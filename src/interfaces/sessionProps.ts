@@ -4,6 +4,7 @@ import { JWT } from "next-auth/jwt";
 
 export interface mySession extends Session {
   user: {
+    id?: string;
     email?: string;
     fullname?: string;
     phone?: string;

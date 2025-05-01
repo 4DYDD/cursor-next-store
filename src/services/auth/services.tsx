@@ -311,10 +311,10 @@ export async function signInWithGoogle(
       updated_at: new Date(),
     };
 
-    await addDoc(collection(firestore, "users"), data).then(() => {
+    await addDoc(collection(firestore, "users"), data).then((res) => {
       callback({
         ...data,
-        id: "",
+        id: res.path.replace("users/", ""),
         password: undefined,
       });
     });

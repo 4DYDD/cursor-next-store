@@ -72,6 +72,7 @@ const authOptions: NextAuthOptions = {
 
             myToken.name = undefined;
 
+            myToken.id = result.data?.id || myToken.id;
             myToken.email = result.data?.email || myToken.email;
             myToken.fullname = result.data?.fullname || myToken.fullname;
             myToken.phone = result.data?.phone || myToken.phone;
@@ -97,6 +98,7 @@ const authOptions: NextAuthOptions = {
       const theSession = session as mySession;
       const myToken = token as myJWT;
 
+      if ("id" in myToken) theSession.user.id = myToken.id;
       if ("email" in myToken) theSession.user.email = myToken.email;
       if ("fullname" in myToken) theSession.user.fullname = myToken.fullname;
 
